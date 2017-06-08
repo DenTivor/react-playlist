@@ -1,6 +1,7 @@
 import { Dispatch } from 'redux' //it calls action to update state of app
 import { connect } from 'react-redux'
 import * as React from 'react'
+import * as Model from '../../reactplaylist/model';
 
 import {
   SideMenu,
@@ -8,6 +9,8 @@ import {
 } from '../../reactplaylist'
 
 interface PlaylistProps {
+	songs: Model.Song[];
+	processStatus: string;
 }
 
 interface PlaylistState {
@@ -19,16 +22,20 @@ class Playlist extends React.Component<PlaylistProps, PlaylistState> {
 	}
 
 	render() {
+		const { songs } = this.props;
 		return (
 			<div className="search-block-wrapper">
-				<SongsList />
+				<SongsList songs={songs}/>
 				<SideMenu />
 			</div>
 		)
 	}
 }
 
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ({
+	songs: state.data.songs,
+	processStatus: state.data.processStatus
+});
 
 const mapDispatchToProps = dispatch => ({});
 
