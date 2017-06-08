@@ -7,9 +7,10 @@ import {
 
 import * as Model from './model';
 
-const addSong = createAction<Model.Song, Model.Song>(
+const addSong = createAction<Model.AddSong, Model.Song>(
   ADD_SONG,
-  (song: Model.Song) => song
+  (song: Model.Song) => ({song: song})
+  // (song: Model.Song) => song
 );
 
 export {

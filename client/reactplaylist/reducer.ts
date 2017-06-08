@@ -28,19 +28,11 @@ const initialState: IState = {
 
 export default function actions(state = initialState, action: any):IState {
   let type = action.type;
-
+  
   if (type === ADD_SONG) {
-  	let song = {
-      id: action.payload.id,
-  		groupName: action.payload.groupName,
-  		songTitle: action.payload.songTitle,
-  		durationMinutes: action.payload.durationMinutes,
-  		durationSeconds: action.payload.durationSeconds
-    };
-
   	return {
   		...state,
-  		songs: [...state.songs, song]
+  		songs: [...state.songs, action.payload.song]
 	};
 
   }
