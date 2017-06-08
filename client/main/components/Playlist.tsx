@@ -29,11 +29,15 @@ class Playlist extends React.Component<PlaylistProps, PlaylistState> {
 		this.props.addSong(song);
 	}
 
+	onDeleteItemsFromList(id) {
+		console.log('root', id)
+	}
+
 	render() {
 		const { songs } = this.props;
 		return (
 			<div className="search-block-wrapper">
-				<SongsList songs={songs}/>
+				<SongsList songs={songs} onDeleteItemsFromList={this.onDeleteItemsFromList.bind(this)}/>
 				<SideMenu onAddingNewItem={this.onAddingNewSong.bind(this)}/>
 			</div>
 		)

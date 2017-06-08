@@ -6,6 +6,7 @@ import * as Model from '../model';
 
 interface SongsListProps {
 	songs?: Model.Song[];
+	onDeleteItemsFromList?:(id: number) => void;
 }
 
 interface SongsListState {
@@ -16,12 +17,16 @@ class SongsList extends React.Component<SongsListProps, SongsListState> {
 		super(props, context); 
 	}
 
+	onDeleteSong(id) {
+		this.props.onDeleteItemsFromList(id);
+	}
+
 	render() {
 		const { songs } = this.props;
 
-		let SongsViewItems = songs.map(function(song, index) {
+		let SongsViewItems = songs.map((song, index) => {
 			return (
-				<Song item={song} key={index}/>
+				<Song item={song} key={index} onCloseIconClick={this.onDeleteSong.bind(this)}/>
 			)
 		});
 
