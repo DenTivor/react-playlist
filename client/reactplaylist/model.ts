@@ -14,3 +14,7 @@ export type IState = {
 export type AddSong = {
 	song: Song;
 }
+
+export type DeleteSong = {
+	id: number
+}

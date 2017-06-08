@@ -7,11 +7,13 @@ import {
   SideMenu,
   SongsList,
   addSong,
+  deleteSong
 } from '../../reactplaylist'
 
 interface PlaylistProps {
 	songs: Model.Song[];
 	addSong(song: Model.Song): void;
+	deleteSong(id: number): void;
 	processStatus: string;
 
 }
@@ -30,7 +32,8 @@ class Playlist extends React.Component<PlaylistProps, PlaylistState> {
 	}
 
 	onDeleteItemsFromList(id) {
-		console.log('root', id)
+		console.log('root', id);
+		this.props.deleteSong(id);
 	}
 
 	render() {
@@ -52,6 +55,9 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
 	addSong: (song: Model.Song) => {
 		dispatch(addSong(song));
+	},
+	deleteSong: (id: number) => {
+		dispatch(deleteSong(id));
 	}
 });
 
