@@ -14,7 +14,7 @@ class Song extends React.Component<SongProps, SongState> {
 	}
 
 	handleCloseIconClick(e) {
-		console.log("songCloseIconClick", this.props);
+		console.log("songCloseIconClick", this.props.item.id);
 	}
 
 	render() {

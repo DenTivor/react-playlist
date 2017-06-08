@@ -6,11 +6,14 @@ import * as Model from '../../reactplaylist/model';
 import {
   SideMenu,
   SongsList,
+  addSong,
 } from '../../reactplaylist'
 
 interface PlaylistProps {
 	songs: Model.Song[];
+	addSong(song: Model.Song): void;
 	processStatus: string;
+
 }
 
 interface PlaylistState {
@@ -21,12 +24,17 @@ class Playlist extends React.Component<PlaylistProps, PlaylistState> {
 		super(props, context);
 	}
 
+	onAddingNewSong(song: Model.Song) {
+		console.log("New song for adding", song);
+		this.props.addSong(song);
+	}
+
 	render() {
 		const { songs } = this.props;
 		return (
 			<div className="search-block-wrapper">
 				<SongsList songs={songs}/>
-				<SideMenu />
+				<SideMenu onAddingNewItem={this.onAddingNewSong.bind(this)}/>
 			</div>
 		)
 	}
@@ -37,6 +45,10 @@ const mapStateToProps = state => ({
 	processStatus: state.data.processStatus
 });
 
-const mapDispatchToProps = dispatch => ({});
+const mapDispatchToProps = dispatch => ({
+	addSong: (song: Model.Song) => {
+		dispatch(addSong(song));
+	}
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Playlist); //it connects an application to store

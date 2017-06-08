@@ -1,11 +1,16 @@
 export type Song = {
+	id: number;
 	groupName: string;
 	songTitle: string;
-	durationMinutes: number;
-	durationSeconds: number;
+	durationMinutes: string;
+	durationSeconds: string;
 }
 
 export type IState = {
   songs?: Song[];
   processStatus?: string;
+}
+
+export type AddSong = {
+	song: Song;
 }
