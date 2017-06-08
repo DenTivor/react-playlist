@@ -2,6 +2,11 @@ import { Dispatch } from 'redux' //it calls action to update state of app
 import { connect } from 'react-redux'
 import * as React from 'react'
 
+import {
+  SideMenu,
+  SongsList,
+} from '../../reactplaylist'
+
 interface PlaylistProps {
 }
 
@@ -16,6 +21,8 @@ class Playlist extends React.Component<PlaylistProps, PlaylistState> {
 	render() {
 		return (
 			<div className="search-block-wrapper">
+				<SongsList />
+				<SideMenu />
 			</div>
 		)
 	}
