@@ -1,8 +1,8 @@
 export type Song = {
 	groupName: string;
 	songTitle: string;
-	durationMinutes: number;
-	durationSeconds: number;
+	durationMinutes: string;
+	durationSeconds: string;
 }
 
 export type IState = {

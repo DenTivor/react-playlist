@@ -8,14 +8,14 @@ const initialState: IState = {
   	{
   		groupName: 'Слот',
 		songTitle: 'Над пропастью во лжи',
-		durationMinutes: 5,
-		durationSeconds: 5
+		durationMinutes: '5',
+		durationSeconds: '5'
   	},
   	{
   		groupName: 'Metallica',
 		songTitle: 'Turn the page',
-		durationMinutes: 5,
-		durationSeconds: 5
+		durationMinutes: '5',
+		durationSeconds: '5'
   	}
   ],
   processStatus: 'initial'

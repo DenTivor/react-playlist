@@ -21,12 +21,16 @@ class Playlist extends React.Component<PlaylistProps, PlaylistState> {
 		super(props, context);
 	}
 
+	onAddingNewSong(song: Model.Song) {
+		console.log("New song for adding", song);
+	}
+
 	render() {
 		const { songs } = this.props;
 		return (
 			<div className="search-block-wrapper">
 				<SongsList songs={songs}/>
-				<SideMenu />
+				<SideMenu onAddingNewItem={this.onAddingNewSong.bind(this)}/>
 			</div>
 		)
 	}
