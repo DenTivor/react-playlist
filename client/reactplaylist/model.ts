@@ -1,4 +1,5 @@
 export type Song = {
+	id: number;
 	groupName: string;
 	songTitle: string;
 	durationMinutes: string;

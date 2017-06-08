@@ -26,6 +26,7 @@ class SideMenu extends React.Component<SideMenuProps, SideMenuState> {
 
   onSaveBtnClick(e) {
     let song = {
+      id: Math.floor(Date.now() / 1000),
       groupName: this.state.groupName,
       songTitle: this.state.songTitle,
       durationMinutes: this.state.durationMinutes,
@@ -55,12 +56,12 @@ class SideMenu extends React.Component<SideMenuProps, SideMenuState> {
               <input className="form-control" id="song-title" onChange={this.onInputChange.bind(this, 'songTitle')} value={this.state.songTitle}/>
             </div>
             <div className="section">
-              <label htmlFor="duration-seconds">Duration seconds</label>
-              <input className="form-control" id="duration-seconds" onChange={this.onInputChange.bind(this, 'durationSeconds')} value={this.state.durationSeconds}/>
-            </div>
-            <div className="section">
               <label htmlFor="duration-minutes">Duration minutes</label>
               <input className="form-control" id="duration-minutes" onChange={this.onInputChange.bind(this, 'durationMinutes')} value={this.state.durationMinutes}/>
+            </div>
+            <div className="section">
+              <label htmlFor="duration-seconds">Duration seconds</label>
+              <input className="form-control" id="duration-seconds" onChange={this.onInputChange.bind(this, 'durationSeconds')} value={this.state.durationSeconds}/>
             </div>
             <div className="section">
               <div className="btn btn-primary" onClick={this.onSaveBtnClick.bind(this)}>Save</div>
