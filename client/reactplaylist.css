@@ -9673,7 +9673,7 @@ body {
   margin-left: 20px;
 }
 .item-close-icon {
-  background-image: url("/images/tpl-icons/shopping_cart_remove.png");
+  background-image: url("./images/tpl-icons/shopping_cart_remove.png");
   background-size: contain;
   background-position: center center;
   height: 20px;
