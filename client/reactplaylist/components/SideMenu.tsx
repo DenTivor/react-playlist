@@ -1,5 +1,6 @@
 import * as React from 'react'
 import * as Model from '../model';
+import { uniqueId } from 'lodash';
 
 interface SideMenuProps {
   onAddingNewItem(song: Model.Song): void;
@@ -24,9 +25,16 @@ class SideMenu extends React.Component<SideMenuProps, SideMenuState> {
     };
   }
 
+  generateUniqueId(){
+    // let id = Math.floor(Date.now() / 1000);
+    let id = uniqueId('song_');
+
+    return id;
+  }
+
   onSaveBtnClick(e) {
     let song = {
-      id: Math.floor(Date.now() / 1000),
+      id: this.generateUniqueId(),
       groupName: this.state.groupName,
       songTitle: this.state.songTitle,
       durationMinutes: this.state.durationMinutes,

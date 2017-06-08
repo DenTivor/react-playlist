@@ -1,5 +1,5 @@
 export type Song = {
-	id: number;
+	id: string;
 	groupName: string;
 	songTitle: string;
 	durationMinutes: string;
@@ -13,4 +13,8 @@ export type IState = {
 
 export type AddSong = {
 	song: Song;
+}
+
+export type DeleteSong = {
+	id: string
 }

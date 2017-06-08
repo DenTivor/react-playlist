@@ -3,6 +3,7 @@ import * as Model from '../model';
 
 interface SongProps {
 	item?: Model.Song;
+	onCloseIconClick?:(id: string) => void;
 }
 
 interface SongState {
@@ -14,7 +15,7 @@ class Song extends React.Component<SongProps, SongState> {
 	}
 
 	handleCloseIconClick(e) {
-		console.log("songCloseIconClick", this.props.item.id);
+		this.props.onCloseIconClick(this.props.item.id);
 	}
 
 	render() {

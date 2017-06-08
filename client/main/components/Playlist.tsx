@@ -7,11 +7,13 @@ import {
   SideMenu,
   SongsList,
   addSong,
+  deleteSong
 } from '../../reactplaylist'
 
 interface PlaylistProps {
 	songs: Model.Song[];
 	addSong(song: Model.Song): void;
+	deleteSong(id: string): void;
 	processStatus: string;
 
 }
@@ -29,11 +31,16 @@ class Playlist extends React.Component<PlaylistProps, PlaylistState> {
 		this.props.addSong(song);
 	}
 
+	onDeleteItemsFromList(id) {
+		console.log('root', id);
+		this.props.deleteSong(id);
+	}
+
 	render() {
 		const { songs } = this.props;
 		return (
 			<div className="search-block-wrapper">
-				<SongsList songs={songs}/>
+				<SongsList songs={songs} onDeleteItemsFromList={this.onDeleteItemsFromList.bind(this)}/>
 				<SideMenu onAddingNewItem={this.onAddingNewSong.bind(this)}/>
 			</div>
 		)
@@ -48,6 +55,9 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
 	addSong: (song: Model.Song) => {
 		dispatch(addSong(song));
+	},
+	deleteSong: (id: string) => {
+		dispatch(deleteSong(id));
 	}
 });
 
