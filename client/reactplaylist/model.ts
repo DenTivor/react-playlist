@@ -1,5 +1,5 @@
 export type Song = {
-	id: number;
+	id: string;
 	groupName: string;
 	songTitle: string;
 	durationMinutes: string;
@@ -16,5 +16,5 @@ export type AddSong = {
 }
 
 export type DeleteSong = {
-	id: number
+	id: string
 }

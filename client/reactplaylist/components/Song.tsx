@@ -3,7 +3,7 @@ import * as Model from '../model';
 
 interface SongProps {
 	item?: Model.Song;
-	onCloseIconClick?:(id: number) => void;
+	onCloseIconClick?:(id: string) => void;
 }
 
 interface SongState {

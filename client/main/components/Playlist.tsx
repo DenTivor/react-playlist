@@ -13,7 +13,7 @@ import {
 interface PlaylistProps {
 	songs: Model.Song[];
 	addSong(song: Model.Song): void;
-	deleteSong(id: number): void;
+	deleteSong(id: string): void;
 	processStatus: string;
 
 }
@@ -56,7 +56,7 @@ const mapDispatchToProps = dispatch => ({
 	addSong: (song: Model.Song) => {
 		dispatch(addSong(song));
 	},
-	deleteSong: (id: number) => {
+	deleteSong: (id: string) => {
 		dispatch(deleteSong(id));
 	}
 });

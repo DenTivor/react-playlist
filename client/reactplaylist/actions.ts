@@ -13,9 +13,9 @@ const addSong = createAction<Model.AddSong, Model.Song>(
   (song: Model.Song) => ({song: song})
 );
 
-const deleteSong = createAction<Model.DeleteSong, number>(
+const deleteSong = createAction<Model.DeleteSong, string>(
   DELETE_SONG,
-  (id: number) => ({id: id})
+  (id: string) => ({id: id})
 );
 
 export {
