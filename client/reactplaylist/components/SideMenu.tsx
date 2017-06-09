@@ -36,7 +36,7 @@ class SideMenu extends React.Component<SideMenuProps, SideMenuState> {
     return id;
   }
 
-  onSaveBtnClick(e) {
+  handleSaveBtnClick(e) {
     let song = {
       id: this.generateUniqueId(),
       groupName: this.state.groupName,
@@ -45,6 +45,11 @@ class SideMenu extends React.Component<SideMenuProps, SideMenuState> {
       durationSeconds: this.state.durationSeconds
     };
     this.props.onAddingNewItem(song);
+    this.resetFields();
+  }
+
+  handleResetBtnClick() {
+    this.resetFields();
   }
 
   onInputChange(key, e) {
@@ -52,6 +57,15 @@ class SideMenu extends React.Component<SideMenuProps, SideMenuState> {
     obj[key] = e.target.value;
 
     this.setState(obj);
+  }
+
+  resetFields() {
+    this.setState({
+      groupName: '',
+      songTitle: '',
+      durationMinutes: '',
+      durationSeconds: ''
+    })
   }
 
   defineWrapperAdditionalClass() {
@@ -77,9 +91,7 @@ class SideMenu extends React.Component<SideMenuProps, SideMenuState> {
         <div className="side-menu-inner">
           <div className="side-menu form-group">
             <div className="top-panel clearfix">
-              <div className="show-icon pull-right">
-                <div className="show-icon-inner"></div>
-              </div>
+
             </div>
             <div className="middle-panel">
               <div className="section">
@@ -101,8 +113,8 @@ class SideMenu extends React.Component<SideMenuProps, SideMenuState> {
             </div>
             <div className="bottom-panel">
               <div className="section">
-                <div className="btn btn-primary" onClick={this.onSaveBtnClick.bind(this)}>Save</div>
-                <div className="btn btn-default">Reset</div>
+                <div className="btn btn-primary" onClick={this.handleSaveBtnClick.bind(this)}>Save</div>
+                <div className="btn btn-default" onClick={this.handleResetBtnClick.bind(this)}>Reset</div>
               </div>
             </div>
           </div>
