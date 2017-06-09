@@ -9704,3 +9704,26 @@ body {
 .side-menu-wrapper .side-menu {
   padding: 20px;
 }
+.side-menu-wrapper .show-icon {
+  margin-left: -35px;
+  background-color: #f5deb3;
+  padding: 10px;
+  border-radius: 10px 0px 0px 10px;
+  cursor: pointer;
+}
+.side-menu-wrapper .show-icon:hover {
+  background-color: #bfae8d;
+}
+.side-menu-wrapper .show-icon-inner {
+  background-image: url("./images/tpl-icons/plus-icon.png");
+  width: 20px;
+  height: 20px;
+  background-size: contain;
+  background-position: center center;
+}
+.menu-hidden .show-menu {
+  display: block;
+}
+.menu-hidden .side-menu {
+  display: none;
+}

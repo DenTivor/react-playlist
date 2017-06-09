@@ -1,0 +1,1 @@
+export const MENU_HIDDEN = 'menu-hidden';

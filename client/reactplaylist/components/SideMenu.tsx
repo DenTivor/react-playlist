@@ -2,6 +2,8 @@ import * as React from 'react'
 import * as Model from '../model';
 import { uniqueId } from 'lodash';
 
+import { MENU_HIDDEN } from '../constants/appConstants';
+
 interface SideMenuProps {
   onAddingNewItem(song: Model.Song): void;
 }
@@ -11,6 +13,7 @@ interface SideMenuState {
   songTitle: string;
   durationMinutes: string;
   durationSeconds: string;
+  isMenuHidden: boolean;
 }
 
 class SideMenu extends React.Component<SideMenuProps, SideMenuState> {
@@ -21,7 +24,8 @@ class SideMenu extends React.Component<SideMenuProps, SideMenuState> {
       groupName: '',
       songTitle: '',
       durationMinutes: '',
-      durationSeconds: ''
+      durationSeconds: '',
+      isMenuHidden: true
     };
   }
 
@@ -50,30 +54,56 @@ class SideMenu extends React.Component<SideMenuProps, SideMenuState> {
     this.setState(obj);
   }
 
+  defineWrapperAdditionalClass() {
+    let result = '';
+
+    if (this.state.isMenuHidden) {
+      result = MENU_HIDDEN;
+    }
+
+    return result;
+  }
+
+  onToggleMenuStatus() {
+    this.setState({isMenuHidden: !this.state.isMenuHidden});
+  }
+
   render() {
       return(
-      <div className="side-menu-wrapper">
+      <div className={'side-menu-wrapper ' + this.defineWrapperAdditionalClass()}>
+        <div className="show-icon show-menu" onClick={this.onToggleMenuStatus.bind(this)}>
+          <div className="show-icon-inner"></div>
+        </div>
         <div className="side-menu-inner">
           <div className="side-menu form-group">
-            <div className="section">
-              <label htmlFor="group-name">Group name</label>
-              <input className="form-control" id="group-name" onChange={this.onInputChange.bind(this, 'groupName')} value={this.state.groupName}/>
+            <div className="top-panel clearfix">
+              <div className="show-icon pull-right">
+                <div className="show-icon-inner"></div>
+              </div>
             </div>
-            <div className="section">
-              <label htmlFor="song-title">Song title</label>
-              <input className="form-control" id="song-title" onChange={this.onInputChange.bind(this, 'songTitle')} value={this.state.songTitle}/>
+            <div className="middle-panel">
+              <div className="section">
+                <label htmlFor="group-name">Group name</label>
+                <input className="form-control" id="group-name" onChange={this.onInputChange.bind(this, 'groupName')} value={this.state.groupName} />
+              </div>
+              <div className="section">
+                <label htmlFor="song-title">Song title</label>
+                <input className="form-control" id="song-title" onChange={this.onInputChange.bind(this, 'songTitle')} value={this.state.songTitle} />
+              </div>
+              <div className="section">
+                <label htmlFor="duration-minutes">Duration minutes</label>
+                <input className="form-control" id="duration-minutes" onChange={this.onInputChange.bind(this, 'durationMinutes')} value={this.state.durationMinutes} />
+              </div>
+              <div className="section">
+                <label htmlFor="duration-seconds">Duration seconds</label>
+                <input className="form-control" id="duration-seconds" onChange={this.onInputChange.bind(this, 'durationSeconds')} value={this.state.durationSeconds} />
+              </div>
             </div>
-            <div className="section">
-              <label htmlFor="duration-minutes">Duration minutes</label>
-              <input className="form-control" id="duration-minutes" onChange={this.onInputChange.bind(this, 'durationMinutes')} value={this.state.durationMinutes}/>
-            </div>
-            <div className="section">
-              <label htmlFor="duration-seconds">Duration seconds</label>
-              <input className="form-control" id="duration-seconds" onChange={this.onInputChange.bind(this, 'durationSeconds')} value={this.state.durationSeconds}/>
-            </div>
-            <div className="section">
-              <div className="btn btn-primary" onClick={this.onSaveBtnClick.bind(this)}>Save</div>
-              <div className="btn btn-default">Reset</div>
+            <div className="bottom-panel">
+              <div className="section">
+                <div className="btn btn-primary" onClick={this.onSaveBtnClick.bind(this)}>Save</div>
+                <div className="btn btn-default">Reset</div>
+              </div>
             </div>
           </div>
         </div>
