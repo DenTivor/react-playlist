@@ -84,41 +84,44 @@ class SideMenu extends React.Component<SideMenuProps, SideMenuState> {
 
   render() {
       return(
-      <div className={'side-menu-wrapper ' + this.defineWrapperAdditionalClass()}>
+      <div className={'side-menu-wrapper '}>
         <div className="show-icon show-menu" onClick={this.onToggleMenuStatus.bind(this)}>
           <div className="show-icon-inner"></div>
         </div>
-        <div className="side-menu-inner">
-          <div className="side-menu form-group">
-            <div className="top-panel clearfix">
 
-            </div>
-            <div className="middle-panel">
-              <div className="section">
-                <label htmlFor="group-name">Group name</label>
-                <input className="form-control" id="group-name" onChange={this.onInputChange.bind(this, 'groupName')} value={this.state.groupName} />
+        {this.state.isMenuHidden && (
+          <div className="side-menu-inner">
+            <div className="side-menu form-group">
+              <div className="top-panel clearfix">
+
               </div>
-              <div className="section">
-                <label htmlFor="song-title">Song title</label>
-                <input className="form-control" id="song-title" onChange={this.onInputChange.bind(this, 'songTitle')} value={this.state.songTitle} />
+              <div className="middle-panel">
+                <div className="section">
+                  <label htmlFor="group-name">Group name</label>
+                  <input className="form-control" id="group-name" onChange={this.onInputChange.bind(this, 'groupName')} value={this.state.groupName} />
+                </div>
+                <div className="section">
+                  <label htmlFor="song-title">Song title</label>
+                  <input className="form-control" id="song-title" onChange={this.onInputChange.bind(this, 'songTitle')} value={this.state.songTitle} />
+                </div>
+                <div className="section">
+                  <label htmlFor="duration-minutes">Duration minutes</label>
+                  <input className="form-control" id="duration-minutes" onChange={this.onInputChange.bind(this, 'durationMinutes')} value={this.state.durationMinutes} />
+                </div>
+                <div className="section">
+                  <label htmlFor="duration-seconds">Duration seconds</label>
+                  <input className="form-control" id="duration-seconds" onChange={this.onInputChange.bind(this, 'durationSeconds')} value={this.state.durationSeconds} />
+                </div>
               </div>
-              <div className="section">
-                <label htmlFor="duration-minutes">Duration minutes</label>
-                <input className="form-control" id="duration-minutes" onChange={this.onInputChange.bind(this, 'durationMinutes')} value={this.state.durationMinutes} />
-              </div>
-              <div className="section">
-                <label htmlFor="duration-seconds">Duration seconds</label>
-                <input className="form-control" id="duration-seconds" onChange={this.onInputChange.bind(this, 'durationSeconds')} value={this.state.durationSeconds} />
-              </div>
-            </div>
-            <div className="bottom-panel">
-              <div className="section">
-                <div className="btn btn-primary" onClick={this.handleSaveBtnClick.bind(this)}>Save</div>
-                <div className="btn btn-default" onClick={this.handleResetBtnClick.bind(this)}>Reset</div>
+              <div className="bottom-panel">
+                <div className="section">
+                  <div className="btn btn-primary" onClick={this.handleSaveBtnClick.bind(this)}>Save</div>
+                  <div className="btn btn-default" onClick={this.handleResetBtnClick.bind(this)}>Reset</div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        )}
       </div>
       );
     }

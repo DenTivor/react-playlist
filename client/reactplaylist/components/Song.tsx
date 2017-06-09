@@ -6,10 +6,7 @@ interface SongProps {
 	onCloseIconClick?:(id: string) => void;
 }
 
-interface SongState {
-}
-
-class Song extends React.Component<SongProps, SongState> {
+class Song extends React.Component<SongProps, void> {
 	constructor(props, context) {
 		super(props, context); 
 	}

@@ -8,8 +8,6 @@ import App from './main/components/App';
 import rootReducer from './main/reducer';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
-const initialState = {};
-
 const store: Store<any> = createStore(rootReducer, composeWithDevTools(
 	applyMiddleware(thunk)));
 

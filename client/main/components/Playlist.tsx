@@ -23,7 +23,9 @@ interface PlaylistState {
 
 class Playlist extends React.Component<PlaylistProps, PlaylistState> {
 	constructor(props, context) {
-		super(props, context);
+		super(props);
+
+		this.onDeleteItemsFromList = this.onDeleteItemsFromList.bind(this);
 	}
 
 	onAddingNewSong(song: Model.Song) {
@@ -40,7 +42,7 @@ class Playlist extends React.Component<PlaylistProps, PlaylistState> {
 		const { songs } = this.props;
 		return (
 			<div className="search-block-wrapper">
-				<SongsList songs={songs} onDeleteItemsFromList={this.onDeleteItemsFromList.bind(this)}/>
+				<SongsList songs={songs} onDeleteItemsFromList={this.onDeleteItemsFromList}/>
 				<SideMenu onAddingNewItem={this.onAddingNewSong.bind(this)}/>
 			</div>
 		)

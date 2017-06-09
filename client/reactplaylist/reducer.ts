@@ -29,6 +29,7 @@ const initialState: IState = {
 
 export default function actions(state = initialState, action: any):IState {
   let type = action.type;
+  let localState = {...state};
   
   if (type === ADD_SONG) {
   	return {
@@ -38,9 +39,9 @@ export default function actions(state = initialState, action: any):IState {
   } else if (type === DELETE_SONG){
     return {
       ...state,
-      songs: state.songs.filter(song => song.id != action.payload.id)
+      songs: localState.songs.filter(song => song.id != action.payload.id)
     };
   }
 
-  return state;
+  return localState;
 }
