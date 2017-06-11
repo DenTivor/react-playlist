@@ -18,20 +18,36 @@ interface IPlaylistProps {
 }
 
 class Playlist extends React.Component<IPlaylistProps, void> {
+
+	/**
+	 * Создает плейлист
+	 * @param {object} props - Проперти компонента
+	*/
 	constructor(props, context) {
 		super(props);
 		this.handleDeleteItemsFromList = this.handleDeleteItemsFromList.bind(this);
 		this.handleAddingNewSong = this.handleAddingNewSong.bind(this);
 	}
 
+	/**
+	 * Обрабатывает событие добавления новой песни
+	 * @param {Song} song - объект новой песни
+	*/
 	handleAddingNewSong(song: Model.Song) {
 		this.props.addSong(song);
 	}
 
+	/**
+	 * Обрабатывает событие удаления песни
+	 * @param {string} id - идентификатор песни в store
+	*/
 	handleDeleteItemsFromList(id) {
 		this.props.deleteSong(id);
 	}
 
+	/**
+	 * Рендерит текущий компонент
+	*/
 	render() {
 		const { songs } = this.props;
 		return (
