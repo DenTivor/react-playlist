@@ -8,15 +8,30 @@ import {
 
 import * as Model from './model';
 
-const addSong = createAction<Model.AddSong, Model.Song>(
-  ADD_SONG,
-  (song: Model.Song) => ({song: song})
-);
+// Implemented with Actions
+// const addSong = createAction<Model.AddSong, Model.Song>(
+//   ADD_SONG,
+//   (song: Model.Song) => ({song: song})
+// );
 
-const deleteSong = createAction<Model.DeleteSong, string>(
-  DELETE_SONG,
-  (id: string) => ({id: id})
-);
+// const deleteSong = createAction<Model.DeleteSong, string>(
+//   DELETE_SONG,
+//   (id: string) => ({id: id})
+// );
+
+const addSong = (song: Model.Song) => {
+	return {
+		type: ADD_SONG,
+		payload: {song: song}
+	}
+}
+
+const deleteSong = (id: string) => {
+	return {
+		type: DELETE_SONG,
+		payload: {id: id}
+	}
+}
 
 export {
   addSong,
