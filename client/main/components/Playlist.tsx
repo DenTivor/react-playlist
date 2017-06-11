@@ -10,31 +10,25 @@ import {
   deleteSong
 } from '../../reactplaylist'
 
-interface PlaylistProps {
+interface IPlaylistProps {
 	songs: Model.Song[];
 	addSong(song: Model.Song): void;
 	deleteSong(id: string): void;
 	processStatus: string;
-
 }
 
-interface PlaylistState {
-}
-
-class Playlist extends React.Component<PlaylistProps, PlaylistState> {
+class Playlist extends React.Component<IPlaylistProps, void> {
 	constructor(props, context) {
 		super(props);
-
-		this.onDeleteItemsFromList = this.onDeleteItemsFromList.bind(this);
+		this.handleDeleteItemsFromList = this.handleDeleteItemsFromList.bind(this);
+		this.handleAddingNewSong = this.handleAddingNewSong.bind(this);
 	}
 
-	onAddingNewSong(song: Model.Song) {
-		console.log("New song for adding", song);
+	handleAddingNewSong(song: Model.Song) {
 		this.props.addSong(song);
 	}
 
-	onDeleteItemsFromList(id) {
-		console.log('root', id);
+	handleDeleteItemsFromList(id) {
 		this.props.deleteSong(id);
 	}
 
@@ -42,8 +36,8 @@ class Playlist extends React.Component<PlaylistProps, PlaylistState> {
 		const { songs } = this.props;
 		return (
 			<div className="search-block-wrapper">
-				<SongsList songs={songs} onDeleteItemsFromList={this.onDeleteItemsFromList}/>
-				<SideMenu onAddingNewItem={this.onAddingNewSong.bind(this)}/>
+				<SongsList songs={songs} handleDeleteItemsFromList={this.handleDeleteItemsFromList}/>
+				<SideMenu handleAddingNewItem={this.handleAddingNewSong}/>
 			</div>
 		)
 	}

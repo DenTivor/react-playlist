@@ -1,18 +1,18 @@
 import * as React from 'react'
 import * as Model from '../model';
 
-interface SongProps {
+interface ISongProps {
 	item?: Model.Song;
-	onCloseIconClick?:(id: string) => void;
+	handleCloseIconClick?:(id: string) => void;
 }
 
-class Song extends React.Component<SongProps, void> {
+class Song extends React.Component<ISongProps, void> {
 	constructor(props, context) {
-		super(props, context); 
+		super(props); 
 	}
 
 	handleCloseIconClick(e) {
-		this.props.onCloseIconClick(this.props.item.id);
+		this.props.handleCloseIconClick(this.props.item.id);
 	}
 
 	render() {

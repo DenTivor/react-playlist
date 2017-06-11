@@ -4,11 +4,11 @@ import { uniqueId } from 'lodash';
 
 import { MENU_HIDDEN } from '../constants/appConstants';
 
-interface SideMenuProps {
-  onAddingNewItem(song: Model.Song): void;
+interface ISideMenuProps {
+  handleAddingNewItem(song: Model.Song): void;
 }
 
-interface SideMenuState {
+interface ISideMenuState {
   groupName: string;
   songTitle: string;
   durationMinutes: string;
@@ -16,9 +16,11 @@ interface SideMenuState {
   isMenuHidden: boolean;
 }
 
-class SideMenu extends React.Component<SideMenuProps, SideMenuState> {
+class SideMenu extends React.Component<ISideMenuProps, ISideMenuState> {
   constructor(props, context) {
-    super(props, context); 
+    super(props);
+
+    this.handleToggleMenuStatus = this.handleToggleMenuStatus.bind(this);
 
     this.state = {
       groupName: '',
@@ -44,7 +46,7 @@ class SideMenu extends React.Component<SideMenuProps, SideMenuState> {
       durationMinutes: this.state.durationMinutes,
       durationSeconds: this.state.durationSeconds
     };
-    this.props.onAddingNewItem(song);
+    this.props.handleAddingNewItem(song);
     this.resetFields();
   }
 
@@ -52,7 +54,7 @@ class SideMenu extends React.Component<SideMenuProps, SideMenuState> {
     this.resetFields();
   }
 
-  onInputChange(key, e) {
+  handleInputChange(key, e) {
     let obj = {};
     obj[key] = e.target.value;
 
@@ -78,18 +80,18 @@ class SideMenu extends React.Component<SideMenuProps, SideMenuState> {
     return result;
   }
 
-  onToggleMenuStatus() {
+  handleToggleMenuStatus() {
     this.setState({isMenuHidden: !this.state.isMenuHidden});
   }
 
   render() {
       return(
       <div className={'side-menu-wrapper '}>
-        <div className="show-icon show-menu" onClick={this.onToggleMenuStatus.bind(this)}>
+        <div className="show-icon show-menu" onClick={this.handleToggleMenuStatus}>
           <div className="show-icon-inner"></div>
         </div>
 
-        {this.state.isMenuHidden && (
+        {!this.state.isMenuHidden && (
           <div className="side-menu-inner">
             <div className="side-menu form-group">
               <div className="top-panel clearfix">
@@ -98,19 +100,19 @@ class SideMenu extends React.Component<SideMenuProps, SideMenuState> {
               <div className="middle-panel">
                 <div className="section">
                   <label htmlFor="group-name">Group name</label>
-                  <input className="form-control" id="group-name" onChange={this.onInputChange.bind(this, 'groupName')} value={this.state.groupName} />
+                  <input className="form-control" id="group-name" onChange={this.handleInputChange.bind(this, 'groupName')} value={this.state.groupName} />
                 </div>
                 <div className="section">
                   <label htmlFor="song-title">Song title</label>
-                  <input className="form-control" id="song-title" onChange={this.onInputChange.bind(this, 'songTitle')} value={this.state.songTitle} />
+                  <input className="form-control" id="song-title" onChange={this.handleInputChange.bind(this, 'songTitle')} value={this.state.songTitle} />
                 </div>
                 <div className="section">
                   <label htmlFor="duration-minutes">Duration minutes</label>
-                  <input className="form-control" id="duration-minutes" onChange={this.onInputChange.bind(this, 'durationMinutes')} value={this.state.durationMinutes} />
+                  <input className="form-control" id="duration-minutes" onChange={this.handleInputChange.bind(this, 'durationMinutes')} value={this.state.durationMinutes} />
                 </div>
                 <div className="section">
                   <label htmlFor="duration-seconds">Duration seconds</label>
-                  <input className="form-control" id="duration-seconds" onChange={this.onInputChange.bind(this, 'durationSeconds')} value={this.state.durationSeconds} />
+                  <input className="form-control" id="duration-seconds" onChange={this.handleInputChange.bind(this, 'durationSeconds')} value={this.state.durationSeconds} />
                 </div>
               </div>
               <div className="bottom-panel">
