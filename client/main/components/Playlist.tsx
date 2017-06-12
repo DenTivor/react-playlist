@@ -6,6 +6,7 @@ import * as Model from '../../reactplaylist/model';
 import {
   SideMenu,
   SongsList,
+  EditModal,
   addSong,
   deleteSong
 } from '../../reactplaylist'
@@ -17,7 +18,12 @@ interface IPlaylistProps {
 	processStatus: string;
 }
 
-class Playlist extends React.Component<IPlaylistProps, void> {
+interface IPlaylistState {
+	isEditModalOpened: boolean;
+	selectedItem?: Model.Song;
+}
+
+class Playlist extends React.Component<IPlaylistProps, IPlaylistState> {
 
 	/**
 	 * Создает плейлист
@@ -26,7 +32,20 @@ class Playlist extends React.Component<IPlaylistProps, void> {
 	constructor(props, context) {
 		super(props);
 		this.handleDeleteItemsFromList = this.handleDeleteItemsFromList.bind(this);
+		this.handleEditItem = this.handleEditItem.bind(this);
 		this.handleAddingNewSong = this.handleAddingNewSong.bind(this);
+		this.handleCloseModal = this.handleCloseModal.bind(this);
+
+		this.state = {
+			isEditModalOpened: false,
+			selectedItem: {
+				id: '',
+				groupName : '',
+				songTitle : '',
+				durationMinutes : '',
+				durationSeconds : ''
+			}
+		}
 	}
 
 	/**
@@ -45,6 +64,19 @@ class Playlist extends React.Component<IPlaylistProps, void> {
 		this.props.deleteSong(id);
 	}
 
+	handleEditItem(item) {
+		console.log(item);
+
+		this.setState({
+			isEditModalOpened: true,
+			selectedItem: item
+		})
+	}
+
+	handleCloseModal() {
+		this.setState({isEditModalOpened: false});
+	}
+
 	/**
 	 * Рендерит текущий компонент
 	*/
@@ -52,8 +84,17 @@ class Playlist extends React.Component<IPlaylistProps, void> {
 		const { songs } = this.props;
 		return (
 			<div className="search-block-wrapper">
-				<SongsList songs={songs} handleDeleteItemsFromList={this.handleDeleteItemsFromList}/>
+				<SongsList
+					songs={songs}
+					handleDeleteItemsFromList={this.handleDeleteItemsFromList}
+					handleEditItem={this.handleEditItem}
+				/>
 				<SideMenu handleAddingNewItem={this.handleAddingNewSong}/>
+				<EditModal
+					isOpened={this.state.isEditModalOpened}
+					onCloseModal={this.handleCloseModal}
+					item={this.state.selectedItem}
+				/>
 			</div>
 		)
 	}

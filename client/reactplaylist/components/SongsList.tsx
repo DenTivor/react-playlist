@@ -7,15 +7,23 @@ import * as Model from '../model';
 interface ISongsListProps {
 	songs?: Model.Song[];
 	handleDeleteItemsFromList?:(id: number) => void;
+	handleEditItem?:(item: Model.Song) => void;
 }
 
 class SongsList extends React.Component<ISongsListProps, void> {
 	constructor(props, context) {
 		super(props); 
+
+		this.handleEditSong = this.handleEditSong.bind(this);
+		this.handleDeleteSong = this.handleDeleteSong.bind(this);
 	}
 
 	handleDeleteSong(id) {
 		this.props.handleDeleteItemsFromList(id);
+	}
+
+	handleEditSong(item) {
+		this.props.handleEditItem(item);
 	}
 
 	render() {
@@ -23,7 +31,12 @@ class SongsList extends React.Component<ISongsListProps, void> {
 
 		let SongsViewItems = songs.map((song, index) => {
 			return (
-				<Song item={song} key={index} handleCloseIconClick={this.handleDeleteSong.bind(this)}/>
+				<Song
+					item={song}
+					key={index}
+					handleEditIconClick={this.handleEditSong}
+					handleCloseIconClick={this.handleDeleteSong}
+				/>
 			)
 		});
 
