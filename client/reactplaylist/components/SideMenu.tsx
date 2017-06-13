@@ -17,7 +17,7 @@ interface ISideMenuState {
 }
 
 class SideMenu extends React.Component<ISideMenuProps, ISideMenuState> {
-  constructor(props, context) {
+  constructor(props) {
     super(props);
 
     this.state = {
