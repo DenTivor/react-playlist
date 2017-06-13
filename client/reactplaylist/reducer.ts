@@ -1,10 +1,11 @@
-import { assign, filter } from 'lodash';
+import { assign, filter, map } from 'lodash';
 import { handleActions, Action } from 'redux-actions';
 
 import { Song, IState} from './model';
 import {
   ADD_SONG,
-  DELETE_SONG
+  DELETE_SONG,
+  EDIT_SONG
 } from './constants/ActionTypes';
 
 const initialState: IState = {
@@ -32,15 +33,20 @@ export default function actions(state = initialState, action: any):IState {
   let localState = {...state};
   
   if (type === ADD_SONG) {
-  	return {
-  		...state,
-  		songs: [...state.songs, action.payload.song]
-	  };
+  	localState.songs.push(action.payload.song)
   } else if (type === DELETE_SONG){
     return {
       ...state,
       songs: localState.songs.filter(song => song.id != action.payload.id)
     };
+  } else if (type === EDIT_SONG) {
+      localState.songs = localState.songs.map(song => {
+        if (song.id == action.payload.item.id) {
+          song = action.payload.item;
+        }  
+
+        return song;
+      })
   }
 
   return localState;

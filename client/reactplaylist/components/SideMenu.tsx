@@ -20,8 +20,6 @@ class SideMenu extends React.Component<ISideMenuProps, ISideMenuState> {
   constructor(props, context) {
     super(props);
 
-    this.handleToggleMenuStatus = this.handleToggleMenuStatus.bind(this);
-
     this.state = {
       groupName: '',
       songTitle: '',
@@ -31,14 +29,14 @@ class SideMenu extends React.Component<ISideMenuProps, ISideMenuState> {
     };
   }
 
-  generateUniqueId(){
+  generateUniqueId = () =>{
     // let id = Math.floor(Date.now() / 1000);
     let id = uniqueId('song_');
 
     return id;
   }
 
-  handleSaveBtnClick(e) {
+  handleSaveBtnClick = (e) => {
     let song = {
       id: this.generateUniqueId(),
       groupName: this.state.groupName,
@@ -50,18 +48,18 @@ class SideMenu extends React.Component<ISideMenuProps, ISideMenuState> {
     this.resetFields();
   }
 
-  handleResetBtnClick() {
+  handleResetBtnClick = () => {
     this.resetFields();
   }
 
-  handleInputChange(key, e) {
+  handleInputChange = (key, e) => {
     let obj = {};
     obj[key] = e.target.value;
 
     this.setState(obj);
   }
 
-  resetFields() {
+  resetFields = () => {
     this.setState({
       groupName: '',
       songTitle: '',
@@ -69,18 +67,8 @@ class SideMenu extends React.Component<ISideMenuProps, ISideMenuState> {
       durationSeconds: ''
     })
   }
-
-  defineWrapperAdditionalClass() {
-    let result = '';
-
-    if (this.state.isMenuHidden) {
-      result = MENU_HIDDEN;
-    }
-
-    return result;
-  }
-
-  handleToggleMenuStatus() {
+  
+  handleToggleMenuStatus = () => {
     this.setState({isMenuHidden: !this.state.isMenuHidden});
   }
 
@@ -117,8 +105,8 @@ class SideMenu extends React.Component<ISideMenuProps, ISideMenuState> {
               </div>
               <div className="bottom-panel">
                 <div className="section">
-                  <div className="btn btn-primary" onClick={this.handleSaveBtnClick.bind(this)}>Save</div>
-                  <div className="btn btn-default" onClick={this.handleResetBtnClick.bind(this)}>Reset</div>
+                  <div className="btn btn-primary" onClick={this.handleSaveBtnClick}>Save</div>
+                  <div className="btn btn-default" onClick={this.handleResetBtnClick}>Reset</div>
                 </div>
               </div>
             </div>

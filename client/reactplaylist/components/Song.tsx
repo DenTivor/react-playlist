@@ -8,18 +8,15 @@ interface ISongProps {
 }
 
 class Song extends React.Component<ISongProps, void> {
-	constructor(props, context) {
+	constructor(props) {
 		super(props); 
-
-		this.handleCloseIconClick = this.handleCloseIconClick.bind(this);
-		this.handleEditIconClick = this.handleEditIconClick.bind(this);
 	}
 
-	handleCloseIconClick(e) {
+	handleCloseIconClick = (e) => {
 		this.props.handleCloseIconClick(this.props.item.id);
 	}
 
-	handleEditIconClick(e) {
+	handleEditIconClick = (e) => {
 		this.props.handleEditIconClick(this.props.item);
 	}
 

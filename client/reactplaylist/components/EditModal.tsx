@@ -18,22 +18,21 @@ interface IEditModalState {
 }
 
 class EditModal extends React.Component<IEditModalProps, IEditModalState> {
-	constructor(props, context) {
+	constructor(props) {
 		super(props); 
-
-		this.handleModalCloseBtnClick = this.handleModalCloseBtnClick.bind(this);
-		this.handleModalSaveBtnClick = this.handleModalSaveBtnClick.bind(this);
+		
+		const{ item, item:{groupName, songTitle, durationMinutes, durationSeconds} } = this.props;
 
 		this.state = {
-			item: this.props.item,
-			currentGroupName: this.props.item.groupName,
-			currentSongTitle: this.props.item.songTitle,
-			currentDurationMinutes: this.props.item.durationMinutes,
-			currentDurationSeconds: this.props.item.durationSeconds
+			item,
+			currentGroupName: groupName,
+			currentSongTitle: songTitle,
+			currentDurationMinutes: durationMinutes,
+			currentDurationSeconds: durationSeconds
 		}
 	}
 
-	handleModalSaveBtnClick() {
+	handleModalSaveBtnClick = () => {
 		const newItem = {
 			id: this.state.item.id,
 			groupName: this.state.currentGroupName,
@@ -47,18 +46,18 @@ class EditModal extends React.Component<IEditModalProps, IEditModalState> {
 		this.props.onSaveModal(newItem);
 	}
 
-	handleInputChange(key, e) {
+	handleInputChange = (key, e) => {
 		let obj = {};
 		obj[key] = e.target.value;
 
 		this.setState(obj);
 	}
 
-	handleModalCloseBtnClick() {
+	handleModalCloseBtnClick = () => {
 		this.props.onCloseModal();
 	}
 
-	componentWillReceiveProps(props) {
+	componentWillReceiveProps = (props) => {
 		this.setState({
 			item: props.item,
 			currentGroupName: props.item.groupName,

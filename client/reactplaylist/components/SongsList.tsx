@@ -11,18 +11,15 @@ interface ISongsListProps {
 }
 
 class SongsList extends React.Component<ISongsListProps, void> {
-	constructor(props, context) {
+	constructor(props) {
 		super(props); 
-
-		this.handleEditSong = this.handleEditSong.bind(this);
-		this.handleDeleteSong = this.handleDeleteSong.bind(this);
 	}
 
-	handleDeleteSong(id) {
+	handleDeleteSong = (id) => {
 		this.props.handleDeleteItemsFromList(id);
 	}
 
-	handleEditSong(item) {
+	handleEditSong = (item) => {
 		this.props.handleEditItem(item);
 	}
 

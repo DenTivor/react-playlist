@@ -8,13 +8,15 @@ import {
   SongsList,
   EditModal,
   addSong,
-  deleteSong
+  deleteSong,
+  editSong
 } from '../../reactplaylist'
 
 interface IPlaylistProps {
 	songs: Model.Song[];
 	addSong(song: Model.Song): void;
 	deleteSong(id: string): void;
+	editSong(item: Model.Song): void;
 	processStatus: string;
 }
 
@@ -29,13 +31,8 @@ class Playlist extends React.Component<IPlaylistProps, IPlaylistState> {
 	 * Создает плейлист
 	 * @param {object} props - Проперти компонента
 	*/
-	constructor(props, context) {
+	constructor(props) {
 		super(props);
-		this.handleDeleteItemsFromList = this.handleDeleteItemsFromList.bind(this);
-		this.handleEditItem = this.handleEditItem.bind(this);
-		this.handleAddingNewSong = this.handleAddingNewSong.bind(this);
-		this.handleCloseModal = this.handleCloseModal.bind(this);
-		this.handleSaveModal = this.handleSaveModal.bind(this);
 
 		this.state = {
 			isEditModalOpened: false,
@@ -51,9 +48,9 @@ class Playlist extends React.Component<IPlaylistProps, IPlaylistState> {
 
 	/**
 	 * Обрабатывает событие добавления новой песни
-	 * @param {Song} song - объект новой песни
+	 * @param {Model.Song} song - объект новой песни
 	*/
-	handleAddingNewSong(song: Model.Song) {
+	handleAddingNewSong = (song: Model.Song) => {
 		this.props.addSong(song);
 	}
 
@@ -61,7 +58,7 @@ class Playlist extends React.Component<IPlaylistProps, IPlaylistState> {
 	 * Обрабатывает событие удаления песни
 	 * @param {string} id - идентификатор песни в store
 	*/
-	handleDeleteItemsFromList(id) {
+	handleDeleteItemsFromList = (id) => {
 		this.props.deleteSong(id);
 	}
 
@@ -69,19 +66,19 @@ class Playlist extends React.Component<IPlaylistProps, IPlaylistState> {
 	 * Обрабатывает событие редактирования айтема в списке
 	 * @param {Model.Song} item - редактируемый объект песни
 	*/
-	handleEditItem(item) {
+	handleEditItem = (item) => {
 		this.setState({
 			isEditModalOpened: true,
 			selectedItem: item
 		})
 	}
 
-	handleCloseModal() {
+	handleCloseModal = () => {
 		this.setState({isEditModalOpened: false});
 	}
 
-	handleSaveModal(item) {
-		console.log(item);
+	handleSaveModal = (item:Model.Song) => {
+		this.props.editSong(item);
 	}
  
 	/**
@@ -119,6 +116,9 @@ const mapDispatchToProps = dispatch => ({
 	},
 	deleteSong: (id: string) => {
 		dispatch(deleteSong(id));
+	},
+	editSong: (item: Model.Song) => {
+		dispatch(editSong(item));
 	}
 });
 

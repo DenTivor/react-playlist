@@ -3,7 +3,8 @@ import { createAction, Action } from 'redux-actions'
 
 import { 
   ADD_SONG,
-  DELETE_SONG
+  DELETE_SONG,
+  EDIT_SONG
 } from './constants/ActionTypes'
 
 import * as Model from './model';
@@ -33,7 +34,15 @@ const deleteSong = (id: string) => {
 	}
 }
 
+const editSong = (item: Model.Song) => {
+	return {
+		type: EDIT_SONG,
+		payload: {item: item}
+	}	
+}
+
 export {
   addSong,
-  deleteSong
+  deleteSong,
+  editSong
 }
