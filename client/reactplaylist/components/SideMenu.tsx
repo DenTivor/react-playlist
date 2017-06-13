@@ -1,6 +1,7 @@
 import * as React from 'react'
 import * as Model from '../model';
 import { uniqueId } from 'lodash';
+import FieldsValidator from '../../main/utils/FieldsValidator';
 
 import { MENU_HIDDEN } from '../constants/appConstants';
 
@@ -17,6 +18,9 @@ interface ISideMenuState {
 }
 
 class SideMenu extends React.Component<ISideMenuProps, ISideMenuState> {
+  validator: FieldsValidator;
+
+
   constructor(props) {
     super(props);
 
@@ -27,7 +31,9 @@ class SideMenu extends React.Component<ISideMenuProps, ISideMenuState> {
       durationSeconds: '',
       isMenuHidden: true
     };
+    this.validator = new FieldsValidator(['add-group-name','add-song-title','add-duration-minutes','add-duration-seconds']);
   }
+
 
   generateUniqueId = () =>{
     // let id = Math.floor(Date.now() / 1000);
@@ -44,8 +50,13 @@ class SideMenu extends React.Component<ISideMenuProps, ISideMenuState> {
       durationMinutes: this.state.durationMinutes,
       durationSeconds: this.state.durationSeconds
     };
-    this.props.handleAddingNewItem(song);
-    this.resetFields();
+
+    let validateResult = this.validator.checkFields();
+
+    if (validateResult) {
+      this.props.handleAddingNewItem(song);
+      this.resetFields();
+    }
   }
 
   handleResetBtnClick = () => {
@@ -88,19 +99,19 @@ class SideMenu extends React.Component<ISideMenuProps, ISideMenuState> {
               <div className="middle-panel">
                 <div className="section">
                   <label htmlFor="group-name">Group name</label>
-                  <input className="form-control" id="group-name" onChange={this.handleInputChange.bind(this, 'groupName')} value={this.state.groupName} />
+                  <input className="form-control" id="add-group-name" onChange={this.handleInputChange.bind(this, 'groupName')} value={this.state.groupName} />
                 </div>
                 <div className="section">
                   <label htmlFor="song-title">Song title</label>
-                  <input className="form-control" id="song-title" onChange={this.handleInputChange.bind(this, 'songTitle')} value={this.state.songTitle} />
+                  <input className="form-control" id="add-song-title" onChange={this.handleInputChange.bind(this, 'songTitle')} value={this.state.songTitle} />
                 </div>
                 <div className="section">
                   <label htmlFor="duration-minutes">Duration minutes</label>
-                  <input className="form-control" id="duration-minutes" onChange={this.handleInputChange.bind(this, 'durationMinutes')} value={this.state.durationMinutes} />
+                  <input className="form-control" id="add-duration-minutes" onChange={this.handleInputChange.bind(this, 'durationMinutes')} value={this.state.durationMinutes} />
                 </div>
                 <div className="section">
                   <label htmlFor="duration-seconds">Duration seconds</label>
-                  <input className="form-control" id="duration-seconds" onChange={this.handleInputChange.bind(this, 'durationSeconds')} value={this.state.durationSeconds} />
+                  <input className="form-control" id="add-duration-seconds" onChange={this.handleInputChange.bind(this, 'durationSeconds')} value={this.state.durationSeconds} />
                 </div>
               </div>
               <div className="bottom-panel">

@@ -2,6 +2,7 @@ import * as React from 'react'
 import * as Model from '../model';
 import * as ReactDOM from 'react-dom';
 import { isUndefined } from 'lodash';
+import FieldsValidator from '../../main/utils/FieldsValidator';
 
 interface IEditModalProps {
 	isOpened: boolean;
@@ -19,6 +20,8 @@ interface IEditModalState {
 }
 
 class EditModal extends React.Component<IEditModalProps, IEditModalState> {
+	validator: FieldsValidator;
+
 	constructor(props) {
 		super(props); 
 		const{ item, item:{groupName, songTitle, durationMinutes, durationSeconds} } = this.props;
@@ -30,6 +33,8 @@ class EditModal extends React.Component<IEditModalProps, IEditModalState> {
 			currentDurationMinutes: durationMinutes,
 			currentDurationSeconds: durationSeconds
 		}
+
+		this.validator = new FieldsValidator(['edit-group-name','edit-song-title','edit-min-duration','edit-sec-duration']);
 	}
 
 	handleModalSaveBtnClick = () => {
@@ -41,9 +46,12 @@ class EditModal extends React.Component<IEditModalProps, IEditModalState> {
 			durationSeconds: this.state.currentDurationSeconds
 		}
 
-		// TODO Validate newItem fields
+		let validateResult = this.validator.checkFields();
 
-		this.props.onSaveModal(newItem);
+		// TODO Validate newItem fields
+		if (validateResult) {
+			this.props.onSaveModal(newItem);
+		}
 	}
 
 	handleInputChange = (key, e) => {
