@@ -58,6 +58,7 @@ class EditModal extends React.Component<IEditModalProps, IEditModalState> {
 	}
 
 	componentWillReceiveProps = (props) => {
+		debugger;
 		this.setState({
 			item: props.item,
 			currentGroupName: props.item.groupName,

@@ -30,24 +30,38 @@ const initialState: IState = {
 
 export default function actions(state = initialState, action: any):IState {
   let type = action.type;
-  let localState = {...state};
-  
-  if (type === ADD_SONG) {
-  	localState.songs.push(action.payload.song)
-  } else if (type === DELETE_SONG){
-    return {
-      ...state,
-      songs: localState.songs.filter(song => song.id != action.payload.id)
-    };
-  } else if (type === EDIT_SONG) {
-      localState.songs = localState.songs.map(song => {
-        if (song.id == action.payload.item.id) {
-          song = action.payload.item;
-        }  
+  let localState = {};
 
-        return song;
-      })
-  }
+  switch (type) {
+    case ADD_SONG:
+      localState = {
+        ...state,
+        songs: [...state.songs, action.payload.song]
+      }
+    break;
+    case DELETE_SONG:
+      localState = {
+        ...state,
+        songs: [...state.songs.filter(song => song.id != action.payload.id)]
+      }
+    break;
+    case EDIT_SONG:
+      localState = {
+        ...state,
+        songs: [...state.songs.map(song => {
+          if (song.id == action.payload.item.id) {
+            song = action.payload.item;
+          }
+
+          return song;
+        })]
+      }
+    break;
+    default:
+      localState = {...state}
+    break;
+}
+
 
   return localState;
 }
