@@ -1,6 +1,7 @@
 import * as React from 'react'
 import * as Model from '../model';
 import * as ReactDOM from 'react-dom';
+import { isUndefined } from 'lodash';
 
 interface IEditModalProps {
 	isOpened: boolean;
@@ -20,7 +21,6 @@ interface IEditModalState {
 class EditModal extends React.Component<IEditModalProps, IEditModalState> {
 	constructor(props) {
 		super(props); 
-		
 		const{ item, item:{groupName, songTitle, durationMinutes, durationSeconds} } = this.props;
 
 		this.state = {
@@ -58,14 +58,15 @@ class EditModal extends React.Component<IEditModalProps, IEditModalState> {
 	}
 
 	componentWillReceiveProps = (props) => {
-		debugger;
-		this.setState({
-			item: props.item,
-			currentGroupName: props.item.groupName,
-			currentSongTitle: props.item.songTitle,
-			currentDurationMinutes: props.item.durationMinutes,
-			currentDurationSeconds: props.item.durationSeconds
-		});
+		if (!isUndefined(props.item.id) && (props.item.id != this.state.item.id)) {
+			this.setState({
+				item: props.item,
+				currentGroupName: props.item.groupName,
+				currentSongTitle: props.item.songTitle,
+				currentDurationMinutes: props.item.durationMinutes,
+				currentDurationSeconds: props.item.durationSeconds
+			});
+		}
 	}
 
 	render() {
