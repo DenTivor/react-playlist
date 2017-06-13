@@ -35,6 +35,7 @@ class Playlist extends React.Component<IPlaylistProps, IPlaylistState> {
 		this.handleEditItem = this.handleEditItem.bind(this);
 		this.handleAddingNewSong = this.handleAddingNewSong.bind(this);
 		this.handleCloseModal = this.handleCloseModal.bind(this);
+		this.handleSaveModal = this.handleSaveModal.bind(this);
 
 		this.state = {
 			isEditModalOpened: false,
@@ -64,9 +65,11 @@ class Playlist extends React.Component<IPlaylistProps, IPlaylistState> {
 		this.props.deleteSong(id);
 	}
 
+	/**
+	 * Обрабатывает событие редактирования айтема в списке
+	 * @param {Model.Song} item - редактируемый объект песни
+	*/
 	handleEditItem(item) {
-		console.log(item);
-
 		this.setState({
 			isEditModalOpened: true,
 			selectedItem: item
@@ -77,6 +80,10 @@ class Playlist extends React.Component<IPlaylistProps, IPlaylistState> {
 		this.setState({isEditModalOpened: false});
 	}
 
+	handleSaveModal(item) {
+		console.log(item);
+	}
+ 
 	/**
 	 * Рендерит текущий компонент
 	*/
@@ -93,6 +100,7 @@ class Playlist extends React.Component<IPlaylistProps, IPlaylistState> {
 				<EditModal
 					isOpened={this.state.isEditModalOpened}
 					onCloseModal={this.handleCloseModal}
+					onSaveModal={this.handleSaveModal}
 					item={this.state.selectedItem}
 				/>
 			</div>
