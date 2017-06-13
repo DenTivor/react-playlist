@@ -3,22 +3,46 @@ import { createAction, Action } from 'redux-actions'
 
 import { 
   ADD_SONG,
-  DELETE_SONG
+  DELETE_SONG,
+  EDIT_SONG
 } from './constants/ActionTypes'
 
 import * as Model from './model';
 
-const addSong = createAction<Model.AddSong, Model.Song>(
-  ADD_SONG,
-  (song: Model.Song) => ({song: song})
-);
+// Implemented with Actions
+// const addSong = createAction<Model.AddSong, Model.Song>(
+//   ADD_SONG,
+//   (song: Model.Song) => ({song: song})
+// );
 
-const deleteSong = createAction<Model.DeleteSong, string>(
-  DELETE_SONG,
-  (id: string) => ({id: id})
-);
+// const deleteSong = createAction<Model.DeleteSong, string>(
+//   DELETE_SONG,
+//   (id: string) => ({id: id})
+// );
+
+const addSong = (song: Model.Song) => {
+	return {
+		type: ADD_SONG,
+		payload: {song: song}
+	}
+}
+
+const deleteSong = (id: string) => {
+	return {
+		type: DELETE_SONG,
+		payload: {id: id}
+	}
+}
+
+const editSong = (item: Model.Song) => {
+	return {
+		type: EDIT_SONG,
+		payload: {item: item}
+	}	
+}
 
 export {
   addSong,
-  deleteSong
+  deleteSong,
+  editSong
 }

@@ -4,21 +4,23 @@ import Song from './Song';
 import * as Model from '../model';
 
 
-interface SongsListProps {
+interface ISongsListProps {
 	songs?: Model.Song[];
-	onDeleteItemsFromList?:(id: number) => void;
+	handleDeleteItemsFromList?:(id: number) => void;
+	handleEditItem?:(item: Model.Song) => void;
 }
 
-interface SongsListState {
-}
-
-class SongsList extends React.Component<SongsListProps, SongsListState> {
-	constructor(props, context) {
-		super(props, context); 
+class SongsList extends React.Component<ISongsListProps, void> {
+	constructor(props) {
+		super(props); 
 	}
 
-	onDeleteSong(id) {
-		this.props.onDeleteItemsFromList(id);
+	handleDeleteSong = (id) => {
+		this.props.handleDeleteItemsFromList(id);
+	}
+
+	handleEditSong = (item) => {
+		this.props.handleEditItem(item);
 	}
 
 	render() {
@@ -26,7 +28,12 @@ class SongsList extends React.Component<SongsListProps, SongsListState> {
 
 		let SongsViewItems = songs.map((song, index) => {
 			return (
-				<Song item={song} key={index} onCloseIconClick={this.onDeleteSong.bind(this)}/>
+				<Song
+					item={song}
+					key={index}
+					handleEditIconClick={this.handleEditSong}
+					handleCloseIconClick={this.handleDeleteSong}
+				/>
 			)
 		});
 

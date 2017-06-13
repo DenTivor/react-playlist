@@ -6,42 +6,100 @@ import * as Model from '../../reactplaylist/model';
 import {
   SideMenu,
   SongsList,
+  EditModal,
   addSong,
-  deleteSong
+  deleteSong,
+  editSong
 } from '../../reactplaylist'
 
-interface PlaylistProps {
+interface IPlaylistProps {
 	songs: Model.Song[];
 	addSong(song: Model.Song): void;
 	deleteSong(id: string): void;
+	editSong(item: Model.Song): void;
 	processStatus: string;
-
 }
 
-interface PlaylistState {
+interface IPlaylistState {
+	isEditModalOpened: boolean;
+	selectedItem?: Model.Song;
 }
 
-class Playlist extends React.Component<PlaylistProps, PlaylistState> {
-	constructor(props, context) {
-		super(props, context);
+class Playlist extends React.Component<IPlaylistProps, IPlaylistState> {
+
+	/**
+	 * Создает плейлист
+	 * @param {object} props - Проперти компонента
+	*/
+	constructor(props) {
+		super(props);
+
+		this.state = {
+			isEditModalOpened: false,
+			selectedItem: {
+				id: '',
+				groupName : '',
+				songTitle : '',
+				durationMinutes : '',
+				durationSeconds : ''
+			}
+		}
 	}
 
-	onAddingNewSong(song: Model.Song) {
-		console.log("New song for adding", song);
+	/**
+	 * Обрабатывает событие добавления новой песни
+	 * @param {Model.Song} song - объект новой песни
+	*/
+	handleAddingNewSong = (song: Model.Song) => {
 		this.props.addSong(song);
 	}
 
-	onDeleteItemsFromList(id) {
-		console.log('root', id);
+	/**
+	 * Обрабатывает событие удаления песни
+	 * @param {string} id - идентификатор песни в store
+	*/
+	handleDeleteItemsFromList = (id) => {
 		this.props.deleteSong(id);
 	}
 
+	/**
+	 * Обрабатывает событие редактирования айтема в списке
+	 * @param {Model.Song} item - редактируемый объект песни
+	*/
+	handleEditItem = (item) => {
+		this.setState({
+			isEditModalOpened: true,
+			selectedItem: item
+		})
+	}
+
+	handleCloseModal = () => {
+		this.setState({isEditModalOpened: false});
+	}
+
+	handleSaveModal = (item:Model.Song) => {
+		this.props.editSong(item);
+	}
+ 
+	/**
+	 * Рендерит текущий компонент
+	*/
 	render() {
 		const { songs } = this.props;
 		return (
 			<div className="search-block-wrapper">
-				<SongsList songs={songs} onDeleteItemsFromList={this.onDeleteItemsFromList.bind(this)}/>
-				<SideMenu onAddingNewItem={this.onAddingNewSong.bind(this)}/>
+				<SongsList
+					songs={songs}
+					handleDeleteItemsFromList={this.handleDeleteItemsFromList}
+					handleEditItem={this.handleEditItem}
+				/>
+				<SideMenu handleAddingNewItem={this.handleAddingNewSong}/>
+				<EditModal
+					isOpened={this.state.isEditModalOpened}
+					onCloseModal={this.handleCloseModal}
+					onSaveModal={this.handleSaveModal}
+					item={this.state.selectedItem}
+				/>
 			</div>
 		)
 	}
@@ -58,6 +116,9 @@ const mapDispatchToProps = dispatch => ({
 	},
 	deleteSong: (id: string) => {
 		dispatch(deleteSong(id));
+	},
+	editSong: (item: Model.Song) => {
+		dispatch(editSong(item));
 	}
 });
 

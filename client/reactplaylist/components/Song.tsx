@@ -1,21 +1,23 @@
 import * as React from 'react'
 import * as Model from '../model';
 
-interface SongProps {
+interface ISongProps {
 	item?: Model.Song;
-	onCloseIconClick?:(id: string) => void;
+	handleCloseIconClick?:(id: string) => void;
+	handleEditIconClick?:(item: Model.Song) => void;
 }
 
-interface SongState {
-}
-
-class Song extends React.Component<SongProps, SongState> {
-	constructor(props, context) {
-		super(props, context); 
+class Song extends React.Component<ISongProps, void> {
+	constructor(props) {
+		super(props); 
 	}
 
-	handleCloseIconClick(e) {
-		this.props.onCloseIconClick(this.props.item.id);
+	handleCloseIconClick = (e) => {
+		this.props.handleCloseIconClick(this.props.item.id);
+	}
+
+	handleEditIconClick = (e) => {
+		this.props.handleEditIconClick(this.props.item);
 	}
 
 	render() {
@@ -27,7 +29,10 @@ class Song extends React.Component<SongProps, SongState> {
 		            <div className="item-group-name pull-left">{groupName}</div>
 		            <div className="item-title pull-left">{songTitle}</div>
 		            <div className="item-duration pull-left">{durationMinutes}:{durationSeconds}</div>
-		            <div className="item-close-icon" onClick={this.handleCloseIconClick.bind(this)}> </div>
+		            <div className="actions pull-right">
+					  <div className="item-edit-icon action-icon pull-left"  onClick={this.handleEditIconClick}></div>
+					  <div className="item-close-icon action-icon pull-left" onClick={this.handleCloseIconClick}></div>
+					</div>
 		          </div>
 		        </div>
 	        </div>
