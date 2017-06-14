@@ -48,7 +48,6 @@ class EditModal extends React.Component<IEditModalProps, IEditModalState> {
 
 		let validateResult = this.validator.checkFields();
 
-		// TODO Validate newItem fields
 		if (validateResult) {
 			this.props.onSaveModal(newItem);
 		}
@@ -65,14 +64,14 @@ class EditModal extends React.Component<IEditModalProps, IEditModalState> {
 		this.props.onCloseModal();
 	}
 
-	componentWillReceiveProps = (props) => {
-		if (!isUndefined(props.item.id) && (props.item.id != this.state.item.id)) {
+	componentWillReceiveProps = (nextProps) => {
+		if ((nextProps.item) && (nextProps.item.id) && (nextProps.item.id != this.state.item.id)) {
 			this.setState({
-				item: props.item,
-				currentGroupName: props.item.groupName,
-				currentSongTitle: props.item.songTitle,
-				currentDurationMinutes: props.item.durationMinutes,
-				currentDurationSeconds: props.item.durationSeconds
+				item: nextProps.item,
+				currentGroupName: nextProps.item.groupName,
+				currentSongTitle: nextProps.item.songTitle,
+				currentDurationMinutes: nextProps.item.durationMinutes,
+				currentDurationSeconds: nextProps.item.durationSeconds
 			});
 		}
 	}
