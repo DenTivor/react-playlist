@@ -9,7 +9,8 @@ import {
   EditModal,
   addSong,
   deleteSong,
-  editSong
+  editSong,
+  getInitialSongs
 } from '../../reactplaylist'
 
 interface IPlaylistProps {
@@ -17,6 +18,7 @@ interface IPlaylistProps {
 	addSong(song: Model.Song): void;
 	deleteSong(id: string): void;
 	editSong(item: Model.Song): void;
+	getInitialSongs(): void;
 	processStatus: string;
 }
 
@@ -44,6 +46,10 @@ class Playlist extends React.Component<IPlaylistProps, IPlaylistState> {
 				durationSeconds : ''
 			}
 		}
+	}
+
+	componentWillMount = () => {
+		this.props.getInitialSongs();
 	}
 
 	/**
@@ -119,6 +125,9 @@ const mapDispatchToProps = dispatch => ({
 	},
 	editSong: (item: Model.Song) => {
 		dispatch(editSong(item));
+	},
+	getInitialSongs: () => {
+		dispatch(getInitialSongs());
 	}
 });
 

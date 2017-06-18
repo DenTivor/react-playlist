@@ -5,26 +5,12 @@ import { Song, IState} from './model';
 import {
   ADD_SONG,
   DELETE_SONG,
-  EDIT_SONG
+  EDIT_SONG,
+  RECEIVE_INITIAL_SONGS
 } from './constants/ActionTypes';
 
 const initialState: IState = {
-  songs: [
-  	{
-      id: '1',
-  		groupName: 'Слот',
-  		songTitle: 'Над пропастью во лжи',
-  		durationMinutes: '5',
-  		durationSeconds: '5'
-  	},
-  	{
-      id: '2',
-  		groupName: 'Metallica',
-  		songTitle: 'Turn the page',
-  		durationMinutes: '5',
-  		durationSeconds: '5'
-  	}
-  ],
+  songs: [],
   processStatus: 'initial'
 };
 
@@ -55,6 +41,12 @@ export default function actions(state = initialState, action: any):IState {
 
           return song;
         })]
+      }
+    break;
+    case RECEIVE_INITIAL_SONGS:
+      localState = {
+        ...state,
+        songs: action.payload.songs
       }
     break;
     default:

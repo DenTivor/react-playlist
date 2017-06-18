@@ -1,3 +1,5 @@
+export const GET_INITIAL_SONGS = 'GET_INITIAL_SONGS';
+export const RECEIVE_INITIAL_SONGS = 'RECEIVE_INITIAL_SONGS';
 export const ADD_SONG = 'ADD_SONG';
 export const DELETE_SONG = 'DELETE_SONG';
 export const EDIT_SONG = 'EDIT_SONG';
